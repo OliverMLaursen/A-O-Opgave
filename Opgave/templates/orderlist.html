@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+</head>
+<body>
+    <h1>Ordre liste</h1>
+    <h2>Ordre</h2>
+    {% for order in AllOrders %}
+    <form action="/OrderDetails">
+        <p>{{ order[0] }}<br>
+        klar til opsamling: {{ order[1] }}<br>
+        overleveret: {{ order[2] }}</p>
+        <input type="hidden" name="orderId" id="orderId" value="{{ order[0] }}"/>
+        <button type="submit">gå til ordre</button>
+    </form>
+    <br><br>
+    {% endfor %}
+
+    <br><br><br>
+
+    <h2>Opret demo ordre</h2>
+    <form action="/newOrder">
+        <p>antal ordrelinjer</p><input type="number" name="lineCount" id="lineCount" placeholder="1"/><br>
+        <button type="submit">Opret ordre</button>
+    </form>
+</body>
+</html>

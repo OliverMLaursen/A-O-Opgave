@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+</head>
+<body>
+    <h1>Ordre detaljer: {{OrderId}}</h1>
+    <form action="/deliverOrder">
+        <p>klar til kunde: {{ReadyForPickup}}<br>
+        afentet: {{Complete}}</p>
+        {% if ReadyForPickup and not Complete %}
+            <input type="hidden" name="orderId" id="orderId" value="{{OrderId}}"/>
+            <button type="submit">Overlever</button>
+        {% endif %}
+    </form>
+    <h2>ordrelinjer</h2>
+    {% for line in OrderLines %}
+    <form action="/readyMaterial">
+        <p>{{ line[0] }}<br>
+        antal: {{ line[1] }}<br>
+        klar til kunde: {{ line[2] }}</p>
+        <input type="hidden" name="orderId" id="orderId" value="{{OrderId}}"/>
+        <input type="hidden" name="lineId" id="lineId" value="{{ line[3] }}"/>
+        {% if not line[2] %}
+            <button type="submit">Modtag</button>
+        {% endif %}
+    </form>
+    <br><br>
+    {% endfor %}
+
+    <br>
+    <form action="/OrderList">
+        <button type="submit">Tilbage til Ordreliste</button>
+    </form>
+</body>
+</html>
